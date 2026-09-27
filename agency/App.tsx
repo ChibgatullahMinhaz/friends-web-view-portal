@@ -1,12 +1,24 @@
-
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Linking, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Linking,
+  StatusBar,
+  RefreshControl,
+  ScrollView,
+} from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
 
 export default function App() {
   const [isConnected, setIsConnected] = useState<boolean | null>(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [isTop, setIsTop] = useState(true); 
+
+  const webViewRef = useRef<any>(null);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -25,26 +37,34 @@ export default function App() {
     });
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    if (webViewRef.current) {
+      webViewRef.current.reload();
+    }
+  };
+
   if (isConnected === false) {
     return (
       <SafeAreaView style={styles.offlineContainer}>
         <StatusBar barStyle="dark-content" />
-        
         <View style={styles.centerContent}>
           <View style={styles.iconOuterCircle}>
             <View style={styles.iconInnerCircle}>
               <Text style={styles.wifiIcon}>📶</Text>
             </View>
           </View>
-
           <Text style={styles.title}>You're offline!</Text>
           <Text style={styles.subtitle}>
-            Turn on mobile data or connect to a Wi-Fi. Or just take a break and go for a walk!
+            Turn on mobile data or connect to a Wi-Fi. Or just take a break and
+            go for a walk!
           </Text>
         </View>
-
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.settingsButton} onPress={openSettings}>
+          <TouchableOpacity
+            style={styles.settingsButton}
+            onPress={openSettings}
+          >
             <Text style={styles.settingsText}>Settings</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.okButton} onPress={handleOk}>
@@ -56,19 +76,41 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      <View style={styles.container}>
-        <WebView
-          source={{ uri: 'https://friends-live-agency.web.app' }}
-          style={styles.webview}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          startInLoadingState={true}
-          scalesPageToFit={true}
-        />
-      </View>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContent}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              enabled={isTop} 
+              colors={['#007AFF']}
+              tintColor="#007AFF"
+            />
+          }
+        >
+          <WebView
+            ref={webViewRef}
+            source={{ uri: 'https://friends-live-agency.web.app' }}
+            style={styles.webview}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            startInLoadingState={true}
+            scalesPageToFit={true}
+            
+            onScroll={(event) => {
+              const currentY = event.nativeEvent.contentOffset.y;
+              setIsTop(currentY <= 0);
+            }}
+            
+            onLoadEnd={() => setRefreshing(false)}
+          />
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -76,6 +118,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+  },
+  scrollViewContent: {
+    flex: 1, 
   },
   webview: {
     flex: 1,
@@ -105,7 +150,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#FFA89B', 
+    backgroundColor: '#FFA89B',
     justifyContent: 'center',
     alignItems: 'center',
   },

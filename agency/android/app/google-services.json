@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "351792726003",
+    "firebase_url": "https://friends-live-1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "friends-live-1",
+    "storage_bucket": "friends-live-1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351792726003:android:ec46dac8652baabee7dc86",
+        "android_client_info": {
+          "package_name": "com.agency"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351792726003-29f51achng662hums50728e58a0lgfa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhj8k0RlyYOiZDr8tllSvJzW3C6UNU0ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351792726003-29f51achng662hums50728e58a0lgfa2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351792726003-krpuhnbn5a1tsnoomd8n34h5i0o2lqqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.friendslive.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351792726003:android:9b8b206251a95a6fe7dc86",
+        "android_client_info": {
+          "package_name": "com.friendslive.stream"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351792726003-bend2atm6vadurl330f29rtpp56mm2ii.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.friendslive.stream",
+            "certificate_hash": "33d6c994cfdf8c191818364f5cd038a2fac9cee6"
+          }
+        },
+        {
+          "client_id": "351792726003-ckmli1obsh0g4v3d3u35uf2odbevffnt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.friendslive.stream",
+            "certificate_hash": "9835413b31a33c7bc4c4e2356a9278e4d76724d7"
+          }
+        },
+        {
+          "client_id": "351792726003-gs2nh99burcs0dqtral8lksb3pl0b5iu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.friendslive.stream",
+            "certificate_hash": "a91fc39c29cfc9420f0502385856f0b799ec5d76"
+          }
+        },
+        {
+          "client_id": "351792726003-29f51achng662hums50728e58a0lgfa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhj8k0RlyYOiZDr8tllSvJzW3C6UNU0ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351792726003-29f51achng662hums50728e58a0lgfa2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351792726003-krpuhnbn5a1tsnoomd8n34h5i0o2lqqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.friendslive.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
