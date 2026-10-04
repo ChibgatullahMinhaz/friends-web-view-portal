@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
-  StyleSheet, 
   View, 
   Text, 
   TouchableOpacity, 
@@ -10,9 +9,9 @@ import {
   RefreshControl
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
 import { styles } from './src/styles/style';
+import RefreshableWebView from './RefreshableWebView';
 
 export default function App() {
   const [isConnected, setIsConnected] = useState<boolean | null>(true);
@@ -84,17 +83,15 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
-        <WebView
+        <RefreshableWebView
           source={{ uri: 'https://friends-live-coinseller.web.app' }}
           style={styles.webview}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           startInLoadingState={true}
           scalesPageToFit={true}
-          pullToRefreshEnabled={true} 
         />
       </View>
     </SafeAreaView>
   );
 }
-

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Linking, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { WebView } from 'react-native-webview';
+import type { WebView, WebViewProps } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
+import RefreshableWebView from './RefreshableWebView';
+
+const WEBVIEW_SOURCE = { uri: 'https://friends-livel-admins.web.app' };
 
 export default function App() {
   const [isConnected, setIsConnected] = useState<boolean | null>(true);
+  const webViewRef = useRef<WebView<WebViewProps>>(null);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -58,8 +62,9 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
-        <WebView
-          source={{ uri: 'https://friends-livel-admins.web.app' }}
+        <RefreshableWebView
+          webViewRef={webViewRef}
+          source={WEBVIEW_SOURCE}
           style={styles.webview}
           javaScriptEnabled={true}
           domStorageEnabled={true}

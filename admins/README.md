@@ -84,6 +84,27 @@ You've successfully run and modified your React Native App. :partying_face:
 
 # Troubleshooting
 
+## WebView pull-to-refresh
+
+Android uses a native refresh control when the WebView is at the top. Pulling
+reloads the current page, including when the initial page load is stalled.
+Repeated pulls during a pull-triggered reload are ignored. The viewport-sized
+outer scroll view accepts gestures at the top, but is disabled when the WebView
+scrolls down so page scrolling stays inside the WebView.
+iOS uses WebView's native pull-to-refresh.
+No injected JavaScript, polling, URL reset, or WebView remount is used.
+
+`RefreshableWebView` preserves the supplied WebView callbacks and accepts a
+`webViewRef`. A separate reload button can call `webViewRef.current?.reload()`;
+it does not need to change the source or manage the pull-to-refresh spinner.
+Loading completion (including WebView load errors) clears the Android spinner.
+The source in `App.tsx` is stable across refresh-state updates.
+
+Validate gestures on an Android/iOS device: pull at the top, scroll mid-page,
+follow a link and refresh, and try an external reload during a page load.
+The Android top detection uses the WebView's native scroll offset; HTML pages
+with independently scrolling inner containers need their own scroll integration.
+
 If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
 # Learn More
